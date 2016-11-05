@@ -253,10 +253,7 @@ updatebit<span class="token punctuation">(</span>BITTree<span class="token punct
 <h3 id="思路">思路</h3>
 <p>和一维一样。对于更新，先对每一行进行更新，在对每一列进行更新。对于getSum，<code>getSum(int i, int j)</code> 表示对\(x &lt;= i ,  y &lt;= j\)的数字求和。所以如果想要查询任意一个矩形内（用\((x_{1},y_{1}),(x_{2},y_{2})\)表示具喜感的左上角和右下角）的数字的和，可以用<code>getSum(x2,y2) + getSum(x1,y1) - getSum(x1,y2) - getSum(x2,y1)</code>计算。</p>
 <h3 id="实现-1">实现</h3>
-<pre class=" language-java"><code class="prism  language-java"><span class="token comment" spellcheck="true">/**
- * Created by zheyu on 16/11/5.
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TwoDBITreeClass</span> <span class="token punctuation">{</span>
+<pre class=" language-java"><code class="prism  language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TwoDBITreeClass</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> twoDBItree<span class="token punctuation">;</span>
     <span class="token function">TwoDBITreeClass</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array<span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>twoDBItree <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span> <span class="token punctuation">[</span>array<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">[</span>array<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
