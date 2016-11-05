@@ -331,5 +331,9 @@ class Query {
 update: O(log NM)
 getSum: O(log NM)
 初始化BIT：O(NMlogNM)
-
+##应用
+###
+###
+###
+###
 
