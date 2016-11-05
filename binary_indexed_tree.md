@@ -246,6 +246,7 @@ updatebit<span class="token punctuation">(</span>BITTree<span class="token punct
 		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>newBITree<span class="token punctuation">.</span><span class="token function">getSum</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token punctuation">}</span>	
 <span class="token punctuation">}</span>
+
 </code></pre>
 <h2 id="d-binary-indexed-tree">2D Binary Indexed Tree</h2>
 <h3 id="动机-1">动机</h3>
