@@ -262,4 +262,74 @@ public class BITreeClass {
 }
 ```
 ##2D Binary Indexed Tree
+###动机
+为了解决2D数组的查询和和更新的操作
+###思路
+和一维一样。对于更新，先对每一行进行更新，在对每一列进行更新。对于getSum，`getSum(int i, int j)` 表示对$x <= i ,  y <= j$的数字求和。所以如果想要查询任意一个矩形内（用$(x_{1},y_{1}),(x_{2},y_{2})$表示具喜感的左上角和右下角）的数字的和，可以用`getSum(x2,y2) + getSum(x1,y1) - getSum(x1,y2) - getSum(x2,y1)`计算。
+###实现
+```java
+/**
+ * Created by zheyu on 16/11/5.
+ */
+public class TwoDBITreeClass {
+    public int[][] twoDBItree;
+    TwoDBITreeClass(int[][] array){
+        this.twoDBItree = new int [array.length][array[0].length + 1];
+        for(int i = 0; i < array.length; i++) {
+            for(int j = 0; j < array[0].length; j++) {
+                update(i, j, array[i][j]);
+            }
+        }
+    }
+    public void update(int x, int y, int value) {
+        y = y + 1;
+        while(y <= twoDBItree[0].length - 1) {
+            twoDBItree[x][y] += value;
+            y += y & -y;
+        }
+    }
+    public int getSum(int x, int y) {
+        int sum = 0;
+        y = y + 1;
+        while(y > 0) {
+            sum += twoDBItree[x][y];
+            y -= y & -y;
+        }
+        return sum;
+    }
+    public int getQuerySum(Query q){
+        int sum = 0;
+        for(int i = q.x2; i >= q.x1; i--) {
+            sum += getSum(i, q.y2) - getSum(i, q.y1 - 1);
+        }
+        return sum;
+    }
+    public static void main(String[] args) {
+        int[][] array = {{1, 2, 3, 4},
+                {5, 3, 8, 1},
+                {4, 6, 7, 5},
+                {2, 4, 8, 9}};
+        TwoDBITreeClass new2DBITree = new TwoDBITreeClass(array);
+        System.out.println(new2DBITree.getQuerySum(new Query(1,1,3,2)));
+        System.out.println(new2DBITree.getQuerySum(new Query(2,3,3,3)));
+        System.out.println(new2DBITree.getQuerySum(new Query(1,1,1,1)));
+    }
+
+}
+class Query {
+    int x1, y1;
+    int x2, y2;
+    Query(int x1, int y1, int x2, int y2) {
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
+    }
+}
+```
+###时间复杂度
+update: O(log NM)
+getSum: O(log NM)
+初始化BIT：O(NMlogNM)
+
 
