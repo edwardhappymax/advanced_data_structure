@@ -408,3 +408,7 @@ public class CountInversion2 {
 }
 ```
 
+####时间复杂度
+Time Complexity :- The update function and getSum function runs for O(log(n)) and we are iterating over n elements. The convert function runs for O(nlog(n)). So overall time complexity is : O(nlog(n)). 
+Auxiliary space : O(n) map + array
+
