@@ -332,8 +332,79 @@ update: O(log NM)
 getSum: O(log NM)
 初始化BIT：O(NMlogNM)
 ##应用
-###
-###
-###
-###
+###求逆序数
+####问题描述
+	Two elements a[i] and a[j] form an inversion if 
+     a[i] > a[j] and i < j. For simplicity, we may 
+     assume that all elements are unique.
+
+     Example:
+     Input:  arr[] = {8, 4, 2, 1}
+     Output: 6
+     Given array has six inversions (8,4), (4,2),
+     (8,2), (8,1), (4,1), (2,1).     
+####思路1
+首先找到原数组中最大的数字，新建一个以该最大数字大一个的BIT。从原数组的末端开始遍历，用一个数组存储他后面比自己大的数的个数。用getSum查找后面所有比自己大的数，用update把所有在自己后面的数加一。
+####实现1
+```java
+public class CountInversion {
+    public static void main(String[] args) {
+        int[] array = {8,4,7,1};
+        int maxNum = Integer.MIN_VALUE;
+        for(int i : array) maxNum = Math.max(maxNum, i);//找到数组中最大的数字，用它新建一个数组
+        BITreeClass BITree = new BITreeClass(maxNum + 1);
+        int sum = 0;
+        for(int i = array.length - 1; i >= 0; i--) {
+            sum += BITree.getSum(array[i]);
+            //这事一个index减少的过程，表示去看有多少比自己小的数字，这些数字是在之前从后往前遍历的时候加入的
+            BITree.update(array[i], 1);
+            //这是一个index增加的过程，表示把所有比当前数字大的计数加1
+        }
+        System.out.println(sum);
+    }
+}
+```
+####时间复杂度和优缺点
+Time Complexity :- The update function and getSum function runs for O(log(maxNum)) and we are iterating over n elements. So overall time complexity is : O(nlog(maxNum)).
+Auxiliary space : O(maxNum)
+缺点是：用了比较大的额外空间，而且由于用了额外空间，BIT更新和查找的时间也变大了。下面的方法用原数组大小的额外空间。
+###思路2
+先把原数组变味一个新数组，新数组的大小与原数组一样。新数组可取范围严格小于等于数组的大小。而且新数组中的数保留了原数组的相互大小关系。然后进行同样的。
+
+例子：	
+
+	arr[] = {7, -90, 100, 1}
+	It gets  converted to,
+	arr[] = {3, 1, 4 ,2 }
+	as -90 < 1 < 7 < 100.
+
+####实现2
+
+```java
+public class CountInversion2 {
+    public static void main(String[] args) {
+        int[] array = {7,-90,100,1,5};
+        convert(array);
+        BITreeClass BITree = new BITreeClass(array.length);
+        int sum = 0;
+        for(int i = array.length - 1; i >= 0; i--) {
+            sum += BITree.getSum(array[i]);
+            BITree.update(array[i], 1);
+        }
+        System.out.println(sum);
+    }
+    public static void convert(int[] array) {
+        int[] tmp = Arrays.copyOf(array, array.length);
+        Arrays.sort(tmp);
+        Map<Integer, Integer> map = new HashMap<>();//Map<原数组的数，坐标（转换后的数）>
+        for(int i = 0; i < array.length; i++) {
+            if(!map.containsKey(tmp[i]))map.put(tmp[i], i);//用map加快大规模数据的处理，这里总是选取一个数第一次出现的坐标来确保原数组中同样的数在被转换后同样的值
+        }
+        for(int i = 0; i < array.length; i++) {
+            array[i] = map.get(array[i]);
+        }
+    }
+
+}
+```
 
