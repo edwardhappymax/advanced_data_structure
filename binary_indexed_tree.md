@@ -386,4 +386,4 @@ as -90 &lt; 1 &lt; 7 &lt; 100.
 </code></pre>
 <h4 id="时间复杂度-1">时间复杂度</h4>
 <p>Time Complexity :- The update function and getSum function runs for O(log(n)) and we are iterating over n elements. The convert function runs for O(nlog(n)). So overall time complexity is : O(nlog(n)).<br>
-Auxiliary space : O(n) map + array</p>
+Auxiliary space : O(n) map + array2</p>
