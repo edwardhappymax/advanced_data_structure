@@ -1,3 +1,5 @@
+[TOC]
+
 #Binary Indexed Tree
 ##动机
 为了解决以下问题操作：
