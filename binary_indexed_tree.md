@@ -1,4 +1,4 @@
-[TOC]
+[toc]
 
 #Binary Indexed Tree
 ##动机
